@@ -2,6 +2,8 @@
 import subprocess
 import paramiko
 import os
+from dotenv import load_dotenv
+
 
 def upload_and_verify(ip, username, local_file, remote_path,password):
     client = paramiko.SSHClient()
@@ -77,13 +79,14 @@ def restart_backend_service(host,user,pw):
         client.close()
 
 def main():
+    # load_dotenv()
     password= input("Enter password:")
     springboot_path = os.getenv("SPRINGBOOT_PATH")
     final_name = os.getenv("FINAL_NAME")
     remote_path = os.getenv("REMOTE_PATH") + final_name
     host = os.getenv("HOST")
     user = os.getenv("USER")
-    print(springboot_path,final_name,remote_path)
+    print(springboot_path,final_name,remote_path,host,user)
     print("Building...")
     if build(springboot_path):
         print("Build Successful!")
